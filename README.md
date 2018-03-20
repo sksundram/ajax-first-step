@@ -1,3 +1,5 @@
+#First step to learning AJAX
+
 This project explains how to do an AJAX call to fetch data from:
 
 -   a local **text** file, 
