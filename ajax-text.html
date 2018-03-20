@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>AJAX | Text File</title>
+</head>
+<body>
+	<button id="button">Get Text File</button>
+	<br>
+	<div id="text"></div>
+
+	<script>
+		const loadText = () => {
+			// Create XHR Object
+			const xhr = new XMLHttpRequest();
+
+			// console.log('READYSTATE: ', xhr.readyState); // 0
+			
+			// OPEN - type, url/filename, async
+			xhr.open('GET', 'sample.txt', true);
+
+			// console.log('READYSTATE: ', xhr.readyState); // 1
+
+			// OPTIONAL - used for loaders
+			// xhr.onprogress = () => console.log('READYSTATE: ', xhr.readyState); // 3
+			
+			// New way
+			xhr.onload = function() {
+				// console.log('READYSTATE: ', xhr.readyState); // 4
+				if (this.status === 200) {
+					document.getElementById('text').innerHTML = this.responseText;
+				} else if (this.status === 404) {
+					document.getElementById('text').innerHTML = 'Not Found';
+				}
+			};
+			
+			// Old way
+			// xhr.onreadystatechange = function() {
+			// 	console.log('READYSTATE: ', xhr.readyState); // 2 // 3 // 4
+			// 	if (this.readyState === 4 && this.status === 200) {
+			// 		// console.log(this.responseText);
+			// 	}
+			// };
+
+			xhr.onerror = () => {
+				console.log('Request error ...');
+			};
+
+			// Send request
+			xhr.send();
+		};
+		
+		// Create event listener
+		document.getElementById('button').addEventListener('click', loadText);
+
+		// HTTP status codes
+		// 200: 'OK'
+		// 403: 'Forbidden'
+		// 404: 'Not Found'
+
+		// readyState values
+		// 0: request not initialized
+		// 1: server connection established
+		// 2: request received
+		// 3: processing request
+		// 4: request finished and response is ready
+	</script>
+</body>
+</html>
